@@ -12,11 +12,11 @@ jobs:
         arch:
           - AARCH64
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: 'recursive'
       - name: Clone edk2
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: tianocore/edk2
           submodules: 'recursive'
