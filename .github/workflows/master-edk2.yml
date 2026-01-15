@@ -20,7 +20,7 @@ jobs:
         with:
           repository: tianocore/edk2
           submodules: 'recursive'
-          ref: edk2-stable202108
+          ref: edk2-stable202105
           path: edk2
       - name: Install requires packages
         run: |
