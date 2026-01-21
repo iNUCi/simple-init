@@ -1,53 +1,52 @@
 name: CI for edk2
 on:
   push:
-    branches: [ master ]
+    branches:
+    - '**'
   pull_request:
-    branches: [ master ]
+    branches:
+    - '**'
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         arch:
-          - ARM
           - AARCH64
-          - IA32
-          - X64
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: 'recursive'
       - name: Clone edk2
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: tianocore/edk2
           submodules: 'recursive'
-          ref: edk2-stable202105
+          ref: edk2-stable202511
           path: edk2
       - name: Install requires packages
         run: |
           sudo apt update
-          sudo apt install --yes --no-install-recommends build-essential uuid-dev iasl nasm gcc-aarch64-linux-gnu gcc-arm-none-eabi gcc-i686-linux-gnu gettext python make
+          sudo apt install --yes --no-install-recommends build-essential uuid-dev iasl nasm gcc-aarch64-linux-gnu gettext python-is-python3 make
       - name: Build for ${{matrix.arch}}
         run: bash scripts/build-edk2.sh ${{matrix.arch}}
       - name: Upload Artifact SimpleInit-${{matrix.arch}}.efi
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: SimpleInit-${{matrix.arch}}.efi
           path: build-edk2/Build/SimpleInit/RELEASE_GCC5/${{matrix.arch}}/SimpleInitMain.efi
       - name: Upload Artifact SimpleInit-${{matrix.arch}}.debug
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: SimpleInit-${{matrix.arch}}.debug
           path: build-edk2/Build/SimpleInit/RELEASE_GCC5/${{matrix.arch}}/SimpleInitMain.debug
       - name: Upload Artifact KernelFdtDxe-${{matrix.arch}}.efi
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: KernelFdtDxe-${{matrix.arch}}.efi
           path: build-edk2/Build/SimpleInit/RELEASE_GCC5/${{matrix.arch}}/KernelFdtDxe.efi
       - name: Upload Artifact KernelFdtDxe-${{matrix.arch}}.debug
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: KernelFdtDxe-${{matrix.arch}}.debug
           path: build-edk2/Build/SimpleInit/RELEASE_GCC5/${{matrix.arch}}/KernelFdtDxe.debug

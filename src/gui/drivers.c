@@ -17,7 +17,6 @@ extern struct gui_driver guidrv_vnc;
 extern struct gui_driver guidrv_http;
 extern struct gui_driver guidrv_fbdev;
 extern struct gui_driver guidrv_uefigop;
-extern struct gui_driver guidrv_uefiuga;
 extern struct input_driver indrv_uefi_kbd;
 extern struct input_driver indrv_uefi_touch;
 extern struct input_driver indrv_uefi_pointer;
@@ -33,7 +32,6 @@ extern struct input_driver indrv_event;
 struct gui_driver*gui_drvs[]={
 	#ifdef ENABLE_UEFI
 	&guidrv_uefigop,
-	&guidrv_uefiuga,
 	#else
 	#ifdef ENABLE_GTK
 	&guidrv_gtk,

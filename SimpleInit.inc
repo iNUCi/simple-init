@@ -27,7 +27,7 @@
   SimpleInitConfd|src/confd/SimpleInitConfd.inf
   SimpleInitRootFS|src/SimpleInitRootFS.inf
   KernelFdtDxe|src/kernelfdt/KernelFdtDxe.inf
-  FdtLib|EmbeddedPkg/Library/FdtLib/FdtLib.inf
+  FdtLib|MdePkg/Library/BaseFdtLib/BaseFdtLib.inf
 
 [Components]
   libs/stb/STBLib.inf

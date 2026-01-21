@@ -21,7 +21,6 @@
 
 [LibraryClasses.ARM, LibraryClasses.AARCH64]
   ArmLib
-  ArmGicLib
   CacheMaintenanceLib
 
 [LibraryClasses]

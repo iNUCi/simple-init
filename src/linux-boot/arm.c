@@ -23,26 +23,21 @@
 
 typedef VOID (*ARM_V7_CACHE_OPERATION)(UINTN);
 typedef VOID (*AARCH64_CACHE_OPERATION)(UINTN);
-extern VOID ArmV7DataCacheOperation(IN ARM_V7_CACHE_OPERATION DataCacheOperation);
-extern VOID AArch64DataCacheOperation(IN AARCH64_CACHE_OPERATION DataCacheOperation);
-extern VOID EFIAPI ArmInvalidateDataCacheEntryBySetWay(IN UINTN SetWayFormat);
-extern VOID EFIAPI ArmCleanDataCacheEntryBySetWay(IN UINTN SetWayFormat);
 #if defined(__arm__)
 #define DataCacheOperation ArmV7DataCacheOperation
 #elif defined(__aarch64__)
-#define DataCacheOperation AArch64DataCacheOperation
+//#define DataCacheOperation AArch64DataCacheOperation
 #endif
-
 static VOID EFIAPI ArmInvalidateDataCacheInternal(VOID){
 	// FUCK ASSERT
 	ArmDataSynchronizationBarrier();
-	DataCacheOperation(ArmInvalidateDataCacheEntryBySetWay);
+	InvalidateDataCache();
 }
 
 static VOID EFIAPI ArmCleanDataCacheInternal(VOID){
 	// FUCK ASSERT
 	ArmDataSynchronizationBarrier();
-	DataCacheOperation(ArmCleanDataCacheEntryBySetWay);
+	WriteBackDataCache();
 }
 
 static void platform_cleanup(linux_boot*lb){
