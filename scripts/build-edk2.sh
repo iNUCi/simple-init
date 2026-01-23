@@ -12,7 +12,7 @@ then	echo "edk2 not found" >&2
 	exit 1
 fi
 export TOOLCHAIN=GCC5
-export TARGET=RELEASE
+export TARGET=DEBUG
 export PACKAGES_PATH="${EDK2}":"${SIMPLE_INIT}"
 export EDK_TOOLS_PATH="${EDK2}"/BaseTools
 export WORKSPACE="${SIMPLE_INIT}/build-edk2"
