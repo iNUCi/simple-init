@@ -218,18 +218,10 @@ static void dump_loaded_image(EFI_LOADED_IMAGE_PROTOCOL*li,const char*fmt,...){
 	dump_size(li->LoadOptionsSize,"%s  load options size",prefix);
 	tlog_debug("%s  load options: %p",prefix,li->LoadOptions);
 	if(li->LoadOptions&&li->LoadOptionsSize>0&&li->LoadOptionsSize<4096){
-		UINTN size=0;
 		char buff[4096];
 		memset(buff,0,sizeof(buff));
 		memcpy(buff,li->LoadOptions,MIN(li->LoadOptionsSize,sizeof(buff)-1));
 		tlog_debug("%s  load options UTF-8: %s",prefix,(CHAR8*)buff);
-		memset(buff,0,sizeof(buff));
-		UnicodeStrnToAsciiStrS(
-			li->LoadOptions,
-			li->LoadOptionsSize,
-			buff,sizeof(buff)-1,&size
-		);
-		tlog_debug("%s  load options UTF-16: %s",prefix,buff);
 	}
 	tlog_debug("%s  image base: %p",prefix,li->ImageBase);
 	dump_size(li->ImageSize,"%s  image size");
